@@ -1,11 +1,14 @@
-const {dbUrl} = require("./index")
+if(process.env.NODE_ENV !="production")
+{
+  require("dotenv").config({path:"./config.env"})
+}
 const mongoose = require("mongoose");
 const Product = require("./models/Product")
-
-mongoose.connect(dbUrl, { useNewUrlParser: true,useUnifiedTopology: true })
+// const dbUrl=process.env.DB_URI
+mongoose.set('strictQuery', true);
+mongoose.connect(process.env.DB_URI)
 .then(()=> console.log(" DB CONNECTED!"))
 .catch((err)=> console.log(err));
-
 
 
 const products = [
